@@ -1,23 +1,21 @@
 #include <SFML/Graphics.hpp>
-#pragma comment(lib, "sfml-graphics-d.lib")
-#pragma comment(lib, "sfml-window-d.lib")
-#pragma comment(lib, "sfml-system-d.lib")
+
 int main()
 {
-    sf::RenderWindow window(sf::VideoMode(250, 200), "SFML");
-    sf::CircleShape shape(120, 3);
-    shape.setFillColor(sf::Color::Blue);
+    sf::RenderWindow window(sf::VideoMode({ 200, 200 }), "SFML works!");
+    sf::CircleShape shape(100.f);
+    shape.setFillColor(sf::Color::Green);
+
     while (window.isOpen())
     {
-        sf::Event event;
-        while (window.pollEvent(event))
+        while (const std::optional event = window.pollEvent())
         {
-            if (event.type == sf::Event::Closed)
+            if (event->is<sf::Event::Closed>())
                 window.close();
         }
+
         window.clear();
         window.draw(shape);
         window.display();
     }
-    return 0;
 }
